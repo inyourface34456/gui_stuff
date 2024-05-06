@@ -1,0 +1,9 @@
+image: gitpod/workspace-full-vnc
+
+tasks:
+  - command: sudo docker-up && docker
+    name: Docker
+  - command: sudo apt update && sudo apt upgrade -y && google-chrome
+    name: Backend
+  - command: source <(curl -s https://gitlab.com/nstoc6696/Gitpod-VNC/-/raw/master/aliases.sh)
+    name: Main Interface
