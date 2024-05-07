@@ -19,8 +19,13 @@ GLFWwindow* boilerplate() {
 
   glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
+  GLFWmonitor* primaryMoniter = glfwGetPrimaryMonitor();
+  const GLFWvidmode mode = *glfwGetVideoMode(primaryMoniter);
+  int width = mode.width;
+  int height = mode.height;
+
   /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
+  window = glfwCreateWindow(width, height, "Hello World", primaryMoniter, NULL);
   if (!window) {
 glfwTerminate();
     return nullptr;

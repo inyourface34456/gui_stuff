@@ -19,6 +19,14 @@ int main(void) {
   glGenVertexArrays(1, &vao);
   glBindVertexArray(vao);
 
+  GLuint ebo;
+  glGenBuffers(1, &ebo);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+
+  GLuint elements[] = {0, 1, 2};
+
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+
   float vertices[] = {
      0.0,  0.5, 1.0, 0.0, 0.0,
      0.5, -0.5, 0.0, 1.0, 0.0,
@@ -62,26 +70,27 @@ int main(void) {
   glLinkProgram(shaderProgram);
   glUseProgram(shaderProgram);
 
-  GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
-  GLint triColor = glGetUniformLocation(shaderProgram, "triColor");
-  glUniform3f(triColor, 1.0, 1.0, 1.0);
-  glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
+  GLint posAttrib = glGetAttribLocation(shaderProgram, "position"); 
   glEnableVertexAttribArray(posAttrib);
+  glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*5, 0);
 
+  GLint colAttrib = glGetAttribLocation(shaderProgram, "color"); 
+  glEnableVertexAttribArray(colAttrib);
+  glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*5, (void*) (sizeof(GLfloat)*2));
 
   if (glGetError() != GL_FALSE) {
-    std::cout << "error someware" << glGetError() << "\n";
+    std::cout << "error someware \n";
   }
 
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
     glClear(GL_COLOR_BUFFER_BIT);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
+
     /* Poll for and process events */
     glfwPollEvents();
 	}
