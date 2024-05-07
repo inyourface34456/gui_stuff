@@ -20,10 +20,11 @@ int main(void) {
   glBindVertexArray(vao);
 
   float vertices[] = {
-     0.0,  0.5, 
-     0.5, -0.5, 
-    -0.5, -0.5
+     0.0,  0.5, 1.0, 0.0, 0.0,
+     0.5, -0.5, 0.0, 1.0, 0.0,
+    -0.5, -0.5, 0.0, 0.0, 1.0
   };
+
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -62,6 +63,8 @@ int main(void) {
   glUseProgram(shaderProgram);
 
   GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
+  GLint triColor = glGetUniformLocation(shaderProgram, "triColor");
+  glUniform3f(triColor, 1.0, 1.0, 1.0);
   glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
   glEnableVertexAttribArray(posAttrib);
@@ -79,7 +82,6 @@ int main(void) {
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
-
     /* Poll for and process events */
     glfwPollEvents();
 	}
