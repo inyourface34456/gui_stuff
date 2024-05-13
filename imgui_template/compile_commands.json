@@ -1,0 +1,20 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++11",
+      "-Iimgui",
+      "-Iimgui/backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-c",
+      "-o",
+      "main.o",
+      "main.cpp"
+    ],
+    "directory": "/workspace/gui_stuff/imgui",
+    "file": "/workspace/gui_stuff/imgui/main.cpp",
+    "output": "/workspace/gui_stuff/imgui/main.o"
+  }
+]

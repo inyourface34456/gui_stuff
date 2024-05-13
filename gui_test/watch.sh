@@ -1,5 +1,5 @@
 while true; do
-  make -s && ./main &
+  make main-release -s && ./main-release &
 	PID=$!
 	inotifywait -e modify *.h *.cpp
 	kill $PID
